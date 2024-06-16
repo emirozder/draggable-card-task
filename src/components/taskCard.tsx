@@ -58,11 +58,15 @@ export const TaskCard = ({
           </Popconfirm>
         </div>
       }
-      style={{ borderRadius: "20px" }}
+      className="task-card-container"
       onClick={() => onEdit(task)}
     >
       <Flex className="task-card-content">
-        <Typography className="task-card-desc">{task.description}</Typography>
+        <Typography className="task-card-desc">
+          {task.description.length > 100
+            ? task.description.substring(0, 200) + "..."
+            : task.description}
+        </Typography>
         <Typography
           className="task-card-urgency"
           style={{

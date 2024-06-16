@@ -5,7 +5,8 @@ import { Task } from "../lib/types/taskTypes.tsx";
 import { addTask, deleteTask, updateTask } from "../redux/taskSlice.tsx";
 import TaskColumn from "../components/taskColumn.tsx";
 import TaskModal from "../components/taskModal.tsx";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
+import "../styles/board.scss";
 
 const TaskBoard: React.FC = () => {
   const dispatch = useDispatch();
@@ -48,8 +49,14 @@ const TaskBoard: React.FC = () => {
 
   return (
     <div className="task-board">
-      <button onClick={handleAddTask}>Add New</button>
-      <Flex gap={"10px"}>
+      <Button
+        className="task-board-addBtn"
+        size={"large"}
+        onClick={handleAddTask}
+      >
+        Add New
+      </Button>
+      <Flex className="task-board-content">
         <TaskColumn
           title="New"
           tasks={tasks.filter((task) => task.status === "new")}

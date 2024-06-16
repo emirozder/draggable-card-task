@@ -1,15 +1,17 @@
 .task-column {
-  background-color: #9f9fa6;
+  background-color: #8aaee0;
+  border: #395886 1px solid;
   border-radius: 20px;
   padding: 10px 20px;
   width: 500px;
-  //max-width: 500px;
+  //max-width: 300px;
   min-height: 50vh;
-  max-height: 80vh;
+  max-height: 70vh;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  box-shadow: rgba(0,0,0,0.5) 1px 1px 10px;
   .task-column-header{
     display: flex;
     justify-content: space-between;
@@ -20,19 +22,13 @@
     //  font-weight: 600;
     //  color: #fff;
     //}
-    //.task-column-button {
-    //  background-color: #fff;
-    //  color: #0e0ed3;
-    //  border: none;
-    //  border-radius: 5px;
-    //  padding: 5px 10px;
-    //  font-size: 1rem;
-    //  font-weight: 600;
-    //  cursor: pointer;
-    //  transition: background-color 0.3s;
-    //  &:hover {
-    //    background-color: #f0f0f0;
-    //  }
-    //}
+  }
+}
+
+@media (max-width: 768px) {
+  .task-column {
+    width: 300px;
+    //min-height: 100vh;
+    //max-height: none;
   }
 }

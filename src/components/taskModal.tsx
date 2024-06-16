@@ -49,7 +49,7 @@ const TaskModal = ({
       centered
       onCancel={onClose}
       footer={null}
-      title={task ? "Update Task" : "Add New Task"}
+      title={task ? "Details & Edit Task" : "Add New Task"}
       className="task-modal"
     >
       <Typography.Title level={5}>Title</Typography.Title>

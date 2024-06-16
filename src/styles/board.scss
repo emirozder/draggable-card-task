@@ -1,0 +1,31 @@
+.task-board-content{
+  flex-direction: row;
+  gap: 50px;
+}
+
+.task-board{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  .task-board-addBtn{
+    width: 100px;
+    background-color: #8AAEE0;
+    border: #395886 1px solid;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: #395886 2px 2px 10px;
+    &:hover {
+      background-color: #7f7f86;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .task-board-content {
+    flex-direction: column;
+  }
+}
