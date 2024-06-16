@@ -8,6 +8,12 @@
 
 }
 
+.task-card-container {
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px,
+    rgba(0, 0, 0, 0.3) 1px 1px 10px inset;
+}
+
 .task-card-title {
     flex: none;
     font-size: 1.3rem;
