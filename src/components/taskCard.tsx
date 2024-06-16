@@ -70,7 +70,7 @@ export const TaskCard = ({
         <Typography
           className="task-card-urgency"
           style={{
-            color:
+            backgroundColor:
               task.urgency === "urgent"
                 ? "red"
                 : task.urgency === "high"

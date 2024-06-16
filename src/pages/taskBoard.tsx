@@ -2,17 +2,51 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store.tsx";
 import { Task } from "../lib/types/taskTypes.tsx";
-import { addTask, deleteTask, updateTask } from "../redux/taskSlice.tsx";
+import {
+  addTask,
+  deleteTask,
+  reorderTasks,
+  updateTask,
+  updateTaskStatus,
+} from "../redux/taskSlice.tsx";
 import TaskColumn from "../components/taskColumn.tsx";
 import TaskModal from "../components/taskModal.tsx";
 import { Button, Flex } from "antd";
 import "../styles/board.scss";
+import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
 
 const TaskBoard: React.FC = () => {
   const dispatch = useDispatch();
   const { tasks } = useSelector((state: RootState) => state.tasks);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const { source, destination } = result;
+    // diff column (set status)
+    if (source.droppableId !== destination.droppableId) {
+      dispatch(
+        updateTaskStatus({
+          id: result.draggableId,
+          status: destination.droppableId,
+        }),
+      );
+    }
+    //same column (reorder task)
+    else {
+      dispatch(
+        reorderTasks({
+          sourceIndex: source.index,
+          destinationIndex: destination.index,
+          status: source.droppableId,
+        }),
+      );
+    }
+  };
 
   const handleEditTask = (task: Task) => {
     setSelectedTask(task);
@@ -40,13 +74,6 @@ const TaskBoard: React.FC = () => {
     dispatch(deleteTask(task?.id || ""));
   };
 
-  const handleDropTask = (
-    task: Task,
-    status: "new" | "inprogress" | "done",
-  ) => {
-    dispatch(updateTask({ ...task, status }));
-  };
-
   return (
     <div className="task-board">
       <Button
@@ -56,29 +83,29 @@ const TaskBoard: React.FC = () => {
       >
         Add New
       </Button>
-      <Flex className="task-board-content">
-        <TaskColumn
-          title="New"
-          tasks={tasks.filter((task) => task.status === "new")}
-          onEdit={handleEditTask}
-          onDelete={handleDeleteTask}
-          onDrop={handleDropTask}
-        />
-        <TaskColumn
-          title="In Progress"
-          tasks={tasks.filter((task) => task.status === "inprogress")}
-          onEdit={handleEditTask}
-          onDelete={handleDeleteTask}
-          onDrop={handleDropTask}
-        />
-        <TaskColumn
-          title="Done"
-          tasks={tasks.filter((task) => task.status === "done")}
-          onEdit={handleEditTask}
-          onDelete={handleDeleteTask}
-          onDrop={handleDropTask}
-        />
-      </Flex>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Flex className="task-board-content">
+          {["new", "inprogress", "done"].map((status) => (
+            <Droppable droppableId={status} key={status}>
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="task-column"
+                >
+                  <TaskColumn
+                    title={status.toUpperCase()}
+                    tasks={tasks.filter((task) => task.status === status)}
+                    onEdit={handleEditTask}
+                    onDelete={handleDeleteTask}
+                  />
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          ))}
+        </Flex>
+      </DragDropContext>
       {isModalVisible && (
         <TaskModal
           visible={isModalVisible}
