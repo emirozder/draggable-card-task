@@ -1,12 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  urgency: "urgent" | "high" | "low";
-  status: "new" | "inprogress" | "done";
-}
+import { Task } from "../lib/types/taskTypes.tsx";
 
 interface TaskState {
   tasks: Task[];
