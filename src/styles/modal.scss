@@ -1,0 +1,29 @@
+.task-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  .ant-modal-content{
+    background-color: #f0f3fa;
+  }
+
+  .ant-modal-title{
+    background-color: #f0f3fa;
+    font-size: x-large;
+    font-weight: bold;
+
+  }
+
+  .task-modal-title,
+  .task-modal-desc,
+  .task-modal-status,
+  .task-modal-urgency {
+    //margin-bottom: 0px;
+    width: 100%;
+  }
+  .task-modal-button {
+    margin-top: 30px;
+    background-color: #8AAEE0;
+    color: #fff;
+  }
+}
