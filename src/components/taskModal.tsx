@@ -73,9 +73,9 @@ const TaskModal = ({
         onChange={setUrgency}
         className="task-modal-urgency"
       >
-        <Select.Option value="urgent">Urgent</Select.Option>
-        <Select.Option value="high">High</Select.Option>
         <Select.Option value="low">Low</Select.Option>
+        <Select.Option value="high">High</Select.Option>
+        <Select.Option value="urgent">Urgent</Select.Option>
       </Select>
       {task ? (
         <>
