@@ -70,7 +70,6 @@ const TaskBoard: React.FC = () => {
 
   const handleDeleteTask = (task: Task) => {
     setSelectedTask(task);
-    console.log("selectedTask", selectedTask);
     dispatch(deleteTask(task?.id || ""));
   };
 
